@@ -8,7 +8,7 @@ import { Provider } from "react-redux";
 import * as serviceWorker from "./serviceWorker";
 
 const initialState = {
-  count: 0,
+  count: 1,
   color: 'pink'
 };
 
