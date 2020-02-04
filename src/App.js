@@ -3,35 +3,45 @@ import { useSelector, useDispatch } from "react-redux";
 import "./App.css";
 
 function App() {
-  const count = useSelector(state => state.count);
-  const color = useSelector(state => state.color);
+  const state = useSelector(state => state);
+  const boxColors = useSelector(state => state.boxColors);
+
   const dispatch = useDispatch();
 
   const renderBoxes = () => {
-    let tempArray = []
-
-      Array.from(Array(count)).forEach((x, i) => {
+    let tempArray = [];
+    Array.from(Array(state.count)).forEach((x, i) => {
+      const boxColor = boxColors[i] || state.color;
       tempArray.push(
         <div
+          key={i}
           style={{
             margin: 10,
             width: 200,
             height: 100,
             border: "1px solid",
-            backgroundColor: color
+            backgroundColor: boxColor
           }}
         >
           <h1>Colorful box</h1>
+          <input
+            onChange={e =>
+              dispatch({
+                type: "CHANGE_SPECIFIC_BOX",
+                payload: { color: e.target.value, index: i }
+              })
+            }
+          ></input>
         </div>
       );
     });
-
-    return tempArray
+    return tempArray;
   };
+
   return (
     <div className="App">
       <div style={{ marginBottom: 10 }}>
-        <h1>{count}</h1>
+        <h1>{state.count}</h1>
         <button onClick={() => dispatch({ type: "INCREMENT" })}>
           Increment
         </button>

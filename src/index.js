@@ -9,7 +9,8 @@ import * as serviceWorker from "./serviceWorker";
 
 const initialState = {
   count: 1,
-  color: 'pink'
+  color: 'pink',
+  boxColors: [null]
 };
 
 function countReducer(state = initialState, action) {
@@ -34,6 +35,14 @@ function countReducer(state = initialState, action) {
         ...state,
         count: 0
       };
+    case "CHANGE_SPECIFIC_BOX":
+      console.log('Loi')
+      const boxColors = state.boxColors
+      boxColors[action.payload.index] = action.payload.color
+      return {
+        ...state,
+        boxColors: boxColors
+      }
     default:
       return state;
   }
